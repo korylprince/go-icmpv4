@@ -3,7 +3,7 @@ package echo
 import (
 	"net"
 
-	"github.com/korylprince/icmpv4"
+	"github.com/korylprince/go-icmpv4"
 )
 
 //Packet represents an ICMPv4 Echo Request/Reply
