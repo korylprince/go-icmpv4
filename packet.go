@@ -38,7 +38,7 @@ type ICMPPacket struct {
 	Code          uint8
 	Checksum      uint16
 	HeaderOptions HeaderOptions
-	Data          []byte
+	Body          []byte
 }
 
 //InvalidPacketError denotes and error parsing an ICMPv4 packet
@@ -60,7 +60,7 @@ func Parse(b []byte) (*ICMPPacket, error) {
 		HeaderOptions: HeaderOptions(uint32(b[4])<<24 | uint32(b[5])<<16 | uint32(b[6])<<8 | uint32(b[7])),
 	}
 	if len(b) > ICMPv4HeaderLength {
-		p.Data = b[ICMPv4HeaderLength:]
+		p.Body = b[ICMPv4HeaderLength:]
 	}
 	if checksum(b) != 0 {
 		return nil, InvalidPacketError("Invalid checksum")
@@ -70,7 +70,7 @@ func Parse(b []byte) (*ICMPPacket, error) {
 
 //Marshal creates a raw ICMPv4 packet from an ICMPPacket
 func (p *ICMPPacket) Marshal() []byte {
-	b := make([]byte, ICMPv4HeaderLength+len(p.Data))
+	b := make([]byte, ICMPv4HeaderLength+len(p.Body))
 	b[0] = p.Type
 	b[1] = p.Code
 	b[4] = byte(p.HeaderOptions >> 24)
@@ -78,8 +78,8 @@ func (p *ICMPPacket) Marshal() []byte {
 	b[6] = byte(p.HeaderOptions >> 8)
 	b[7] = byte(p.HeaderOptions)
 
-	if len(p.Data) > 0 {
-		copy(b[ICMPv4HeaderLength:], p.Data)
+	if len(p.Body) > 0 {
+		copy(b[ICMPv4HeaderLength:], p.Body)
 	}
 	chksum := checksum(b)
 	b[2] = byte(chksum >> 8)
