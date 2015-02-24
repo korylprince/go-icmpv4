@@ -14,7 +14,7 @@ func TestBadAddr(t *testing.T) {
 	}
 
 	//send request
-	p := ICMPPacket{HeaderOptions: HeaderOptions(0xabad1dea)}
+	p := Packet{HeaderOptions: HeaderOptions(0xabad1dea)}
 	err = Send(laddr, laddr, p.Marshal())
 	if err == nil {
 		t.Errorf("Did not receive error when using invalid local address")
@@ -85,7 +85,7 @@ func pingSetup(t *testing.T, packet []byte) (packets chan *IPPacket, errors chan
 }
 
 func TestGoodPing(t *testing.T) {
-	p := &ICMPPacket{HeaderOptions: HeaderOptions(0xabad1dea)}
+	p := &Packet{HeaderOptions: HeaderOptions(0xabad1dea)}
 	packets, errors := pingSetup(t, p.Marshal())
 
 	//check that no errors happened
@@ -178,7 +178,7 @@ func TestListenerAll(t *testing.T) {
 		return
 	}
 
-	p := &ICMPPacket{HeaderOptions: HeaderOptions(0xabad1dea)}
+	p := &Packet{HeaderOptions: HeaderOptions(0xabad1dea)}
 
 	check := make(map[string]struct{})
 

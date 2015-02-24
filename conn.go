@@ -59,7 +59,7 @@ func Listener(conn *net.IPConn, packets chan *IPPacket, errors chan error, done 
 				continue
 			}
 			packets <- &IPPacket{
-				ICMPPacket: packet,
+				Packet:     packet,
 				LocalAddr:  laddr,
 				RemoteAddr: raddr,
 			}

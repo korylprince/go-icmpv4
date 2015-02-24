@@ -32,8 +32,8 @@ func (h *HeaderOptions) SetUint16(n uint8, i uint16) {
 	*h = HeaderOptions((uint32(*h) & mask) | iShift)
 }
 
-//ICMPPacket represents an ICMPv4 packet
-type ICMPPacket struct {
+//Packet represents an ICMPv4 packet
+type Packet struct {
 	Type          uint8
 	Code          uint8
 	Checksum      uint16
@@ -48,12 +48,12 @@ func (err InvalidPacketError) Error() string {
 	return string(err)
 }
 
-//Parse parses a raw ICMPv4 packet and returns an ICMPPacket, or an error if one occurred
-func Parse(b []byte) (*ICMPPacket, error) {
+//Parse parses a raw ICMPv4 packet and returns an Packet, or an error if one occurred
+func Parse(b []byte) (*Packet, error) {
 	if len(b) < ICMPv4HeaderLength {
 		return nil, InvalidPacketError("Malformed headers")
 	}
-	p := ICMPPacket{
+	p := Packet{
 		Type:          b[0],
 		Code:          b[1],
 		Checksum:      uint16(b[2])<<8 | uint16(b[3]),
@@ -68,8 +68,8 @@ func Parse(b []byte) (*ICMPPacket, error) {
 	return &p, nil
 }
 
-//Marshal creates a raw ICMPv4 packet from an ICMPPacket
-func (p *ICMPPacket) Marshal() []byte {
+//Marshal creates a raw ICMPv4 packet from an Packet
+func (p *Packet) Marshal() []byte {
 	b := make([]byte, ICMPv4HeaderLength+len(p.Body))
 	b[0] = p.Type
 	b[1] = p.Code
@@ -87,9 +87,9 @@ func (p *ICMPPacket) Marshal() []byte {
 	return b
 }
 
-//IPPacket is a wrapper for ICMPPacket with IP information
+//IPPacket is a wrapper for Packet with IP information
 type IPPacket struct {
-	*ICMPPacket
+	*Packet
 	LocalAddr  *net.IPAddr
 	RemoteAddr *net.IPAddr
 }

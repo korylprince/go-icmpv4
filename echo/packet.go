@@ -8,7 +8,7 @@ import (
 
 //Packet represents an ICMPv4 Echo Request/Reply
 type Packet struct {
-	*icmpv4.ICMPPacket
+	*icmpv4.Packet
 }
 
 //Identifier gets the ICMPv4 Echo Request/Reply identifier
@@ -33,7 +33,7 @@ func (e *Packet) SetSequence(i uint16) {
 
 //NewEchoRequest creates a new ICMPv4 Echo Request with the given identifier and sequence
 func NewEchoRequest(identifier, sequence uint16) *Packet {
-	p := Packet{ICMPPacket: &icmpv4.ICMPPacket{Type: 8, Code: 0}}
+	p := Packet{Packet: &icmpv4.Packet{Type: 8, Code: 0}}
 	p.SetIdentifier(identifier)
 	p.SetSequence(sequence)
 	return &p

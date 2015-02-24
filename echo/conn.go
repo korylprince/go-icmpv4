@@ -21,7 +21,7 @@ func convertAndFilter(in chan *icmpv4.IPPacket, out chan *IPPacket) {
 
 		if p.Type == 0 && p.Code == 0 {
 			out <- &IPPacket{
-				Packet:     &Packet{ICMPPacket: p.ICMPPacket},
+				Packet:     &Packet{Packet: p.Packet},
 				LocalAddr:  p.LocalAddr,
 				RemoteAddr: p.RemoteAddr,
 			}
