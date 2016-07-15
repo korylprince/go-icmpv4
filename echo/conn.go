@@ -9,8 +9,6 @@ import (
 //Send sends an ICMPv4 Echo Request to raddr from laddr with the given identifier and sequence
 func Send(laddr, raddr *net.IPAddr, identifier, sequence uint16) (err error) {
 	p := NewEchoRequest(identifier, sequence)
-	p.SetIdentifier(identifier)
-	p.SetSequence(sequence)
 	return icmpv4.Send(laddr, raddr, p.Marshal())
 }
 
