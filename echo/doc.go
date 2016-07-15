@@ -13,13 +13,13 @@ This package makes it easy to add ICMPv4 pings to your program. This example wil
 		"github.com/korylprince/go-icmpv4/echo"
 	)
 
-	func Printer(in chan *echo.IPPacket) {
+	func Printer(in <-chan *echo.IPPacket) {
 		for {
 			fmt.Println("Response from:", (<-in).RemoteAddr.String())
 		}
 	}
 
-	func Errors(in chan error) {
+	func Errors(in <-chan error) {
 		for {
 			fmt.Printf("%#v\n", <-in)
 		}

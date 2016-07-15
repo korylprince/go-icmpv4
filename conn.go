@@ -33,7 +33,7 @@ func Listen(laddr *net.IPAddr) (*net.IPConn, error) {
 
 //Listener parses incoming ICMPv4 packets from an ICMPv4 net.IPConn and sends packets and errors back on channels.
 //When done is closed, it returns an error (or nil) from conn.Close().
-func Listener(conn *net.IPConn, packets chan *IPPacket, errors chan error, done chan struct{}) error {
+func Listener(conn *net.IPConn, packets chan<- *IPPacket, errors chan<- error, done <-chan struct{}) error {
 	laddr, ok := (conn.LocalAddr()).(*net.IPAddr)
 	if !ok {
 		panic(fmt.Errorf("conn.LocalAddr() != *net.IPAddr"))
@@ -69,7 +69,7 @@ func Listener(conn *net.IPConn, packets chan *IPPacket, errors chan error, done 
 
 //ListenerAll creates a Listener for all IPv4 connections available. It returns a list of addresses that it's
 //listening on or an error if it can't get that list.
-func ListenerAll(packets chan *IPPacket, errors chan error, done chan struct{}) ([]*net.IPAddr, error) {
+func ListenerAll(packets chan<- *IPPacket, errors chan<- error, done <-chan struct{}) ([]*net.IPAddr, error) {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
 		return nil, err

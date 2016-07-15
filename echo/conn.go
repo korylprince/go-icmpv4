@@ -15,7 +15,7 @@ func Send(laddr, raddr *net.IPAddr, identifier, sequence uint16) (err error) {
 }
 
 //convertAndFilter
-func convertAndFilter(in chan *icmpv4.IPPacket, out chan *IPPacket) {
+func convertAndFilter(in <-chan *icmpv4.IPPacket, out chan<- *IPPacket) {
 	for {
 		p := <-in
 
@@ -31,7 +31,7 @@ func convertAndFilter(in chan *icmpv4.IPPacket, out chan *IPPacket) {
 
 //Listener parses incoming ICMPv4 Echo Replys from an ICMPv4 net.IPConn and sends packets and errors back on channels.
 //When done is closed, it returns an error (or nil) from conn.Close().
-func Listener(conn *net.IPConn, packets chan *IPPacket, errors chan error, done chan struct{}) error {
+func Listener(conn *net.IPConn, packets chan<- *IPPacket, errors chan<- error, done <-chan struct{}) error {
 	packetsInternal := make(chan *icmpv4.IPPacket)
 	go convertAndFilter(packetsInternal, packets)
 	return icmpv4.Listener(conn, packetsInternal, errors, done)
@@ -39,7 +39,7 @@ func Listener(conn *net.IPConn, packets chan *IPPacket, errors chan error, done 
 
 //ListenerAll creates a Listener for all IPv4 connections available. It returns a list of addresses that it's
 //listening on or an error if it can't get that list.
-func ListenerAll(packets chan *IPPacket, errors chan error, done chan struct{}) ([]*net.IPAddr, error) {
+func ListenerAll(packets chan<- *IPPacket, errors chan<- error, done <-chan struct{}) ([]*net.IPAddr, error) {
 	packetsInternal := make(chan *icmpv4.IPPacket)
 	go convertAndFilter(packetsInternal, packets)
 	return icmpv4.ListenerAll(packetsInternal, errors, done)
