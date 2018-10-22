@@ -2,7 +2,7 @@ package icmpv4
 
 import "net"
 
-//Length of ICMPv4 header in bytes
+//ICMPv4HeaderLength is the length of the ICMPv4 header in bytes
 const ICMPv4HeaderLength = 8
 
 //HeaderOptions is a 4-byte part of the ICMPv4 header. The value(s) it represents depends on the Type and Code.
