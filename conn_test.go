@@ -40,9 +40,9 @@ func pingSetup(t *testing.T, packet []byte) (packets chan *IPPacket, errors chan
 	done := make(chan struct{})
 	retErr := make(chan error)
 	go func() {
-		err := Listener(conn, packets, errors, done)
-		if err != nil {
-			retErr <- err
+		lErr := Listener(conn, packets, errors, done)
+		if lErr != nil {
+			retErr <- lErr
 			return
 		}
 		retErr <- nil
