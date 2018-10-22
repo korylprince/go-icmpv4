@@ -10,16 +10,16 @@ This package makes it easy to add ICMPv4 pings to your program. This example wil
 		"strconv"
 		"time"
 
-		"github.com/korylprince/go-icmpv4/echo"
+		"gopkg.in/korylprince/go-icmpv4.v1/echo"
 	)
 
-	func Printer(in <-chan *echo.IPPacket) {
+	func printer(in <-chan *echo.IPPacket) {
 		for {
 			fmt.Println("Response from:", (<-in).RemoteAddr.String())
 		}
 	}
 
-	func Errors(in <-chan error) {
+	func errPrinter(in <-chan error) {
 		for {
 			fmt.Printf("%#v\n", <-in)
 		}
@@ -28,9 +28,9 @@ This package makes it easy to add ICMPv4 pings to your program. This example wil
 	func main() {
 		//set up channels
 		packets := make(chan *echo.IPPacket)
-		go Printer(packets)
+		go printer(packets)
 		errors := make(chan error)
-		go Errors(errors)
+		go errPrinter(errors)
 		done := make(chan struct{})
 
 		//start listener
