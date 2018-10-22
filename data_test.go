@@ -1,14 +1,24 @@
 package icmpv4
 
-//go:generate go-bindata -pkg=icmpv4 -o=bindata_test.go test_data
+import (
+	"io/ioutil"
+	"log"
+)
 
 //packets contains test ICMP packets captured from the real world. All of their checksums are correct.
 var testPackets [][]byte
 
 func init() {
 	testPackets = make([][]byte, 0)
-	for _, name := range AssetNames() {
-		data, _ := Asset(name)
-		testPackets = append(testPackets, data)
+	files, err := ioutil.ReadDir("test_data")
+	if err != nil {
+		log.Fatalln("Unable to read test_data directory:", err)
+	}
+	for _, fi := range files {
+		buf, err := ioutil.ReadFile("test_data/" + fi.Name())
+		if err != nil {
+			log.Fatalf("Unable to read %s: %v\n", fi.Name(), err)
+		}
+		testPackets = append(testPackets, buf)
 	}
 }
