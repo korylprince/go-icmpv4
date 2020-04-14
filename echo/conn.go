@@ -3,7 +3,7 @@ package echo
 import (
 	"net"
 
-	"github.com/korylprince/go-icmpv4"
+	"github.com/korylprince/go-icmpv4/v2"
 )
 
 //Send sends an ICMPv4 Echo Request to raddr from laddr with the given identifier and sequence

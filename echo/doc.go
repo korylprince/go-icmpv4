@@ -1,5 +1,5 @@
 /*
-Package echo provides a thin wrapper over github.com/korylprince/go-icmpv4 solely for ICMPv4 Echo Request/Reply packets.
+Package echo provides a thin wrapper over github.com/korylprince/go-icmpv4/v2 solely for ICMPv4 Echo Request/Reply packets.
 This package makes it easy to add ICMPv4 pings to your program. This example will ping every IP on a subnet and print responses as they come in:
 
 	package main
@@ -10,7 +10,7 @@ This package makes it easy to add ICMPv4 pings to your program. This example wil
 		"strconv"
 		"time"
 
-		"gopkg.in/korylprince/go-icmpv4.v1/echo"
+		"github.com/korylprince/go-icmpv4/v2/echo"
 	)
 
 	func printer(in <-chan *echo.IPPacket) {
