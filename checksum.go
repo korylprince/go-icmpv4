@@ -12,10 +12,9 @@ func checksum(packet []byte) uint16 {
 	words := len(packet) / 2
 
 	for i := 0; i < words; i++ {
-
 		word := uint32(packet[i*2])<<8 | uint32(packet[i*2+1])
 
-		sum = sum + word
+		sum += word
 
 		//carry one if present
 		sum = (0xFFFF & sum) + (sum >> 16)

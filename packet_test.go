@@ -21,7 +21,6 @@ func TestHeaderOptionsByte(t *testing.T) {
 				t.Errorf("Packet %d: SetByte(%d, %d): Expected: %#x, Got Byte(%d) = %#x", pi, i, i, i, i, h.Byte(i))
 			}
 		}
-
 	}
 }
 
@@ -44,7 +43,6 @@ func TestHeaderOptionsUnint16(t *testing.T) {
 				t.Errorf("Packet %d: SetUint16(%d, %d): Expected: %#x, Got Uint16(%d) = %#x", pi, i, i, i, i, h.Uint16(i))
 			}
 		}
-
 	}
 }
 
@@ -53,7 +51,6 @@ func TestMalformedHeaders(t *testing.T) {
 	_, err := Parse([]byte{})
 	if _, ok := err.(InvalidPacketError); !ok {
 		t.Errorf("Expected InvalidPacketError, Got: %#v", err)
-
 	}
 	if err.Error() != "Malformed headers" {
 		t.Errorf("Expected \"Malformed headers\" error, Got: %s", err.Error())

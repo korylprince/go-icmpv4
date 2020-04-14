@@ -16,6 +16,5 @@ func TestChecksum(t *testing.T) {
 		if c := checksum(pNew); c != old {
 			t.Errorf("Packet %d: Expected checksum %#x, got %#x", i, old, c)
 		}
-
 	}
 }

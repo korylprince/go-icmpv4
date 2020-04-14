@@ -242,9 +242,7 @@ packetloop:
 					return
 				}
 			}
-			if _, ok := check[packet.RemoteAddr.String()]; ok {
-				delete(check, packet.RemoteAddr.String())
-			}
+			delete(check, packet.RemoteAddr.String())
 		default:
 			//if we didn't get a packet for every interface
 			if len(check) != 0 {
