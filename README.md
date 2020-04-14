@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/gopkg.in/korylprince/go-icmpv4.v1?status.svg)](https://godoc.org/gopkg.in/korylprince/go-icmpv4.v1)
+[![pkg.go.dev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/korylprince/go-icmpv4/v2)
 
 # About
 
@@ -6,17 +6,17 @@
 
 # Installing
 
-`go get gopkg.in/korylprince/go-icmpv4.v1`
+Using Go Modules:
 
-If you have any issues or questions [create an issue](https://github.com/korylprince/go-icmpv4/issues).
+`go get github.com/korylprince/go-icmpv4/v2`
+
+Using gopkg.in:
+
+`go get gopkg.in/korylprince/go-icmpv4.v2`
 
 # Usage
 
-`godoc gopkg.in/korylprince/go-icmpv4.v1`
-
-`godoc gopkg.in/korylprince/go-icmpv4.v1/echo`
-
-Example:
+**Example:**
 
 ```go
 package main
@@ -27,7 +27,7 @@ import (
 	"strconv"
 	"time"
 
-	"gopkg.in/korylprince/go-icmpv4.v1/echo"
+	"github.com/korylprince/go-icmpv4/v2/echo"
 )
 
 func printer(in <-chan *echo.IPPacket) {
@@ -78,6 +78,10 @@ func main() {
 	close(done)
 }
 ```
+
+# Issues
+
+If you have any issues or questions [create an issue](https://github.com/korylprince/go-icmpv4/issues).
 
 # Testing
 
