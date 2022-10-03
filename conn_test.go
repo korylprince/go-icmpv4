@@ -1,6 +1,7 @@
 package icmpv4
 
 import (
+	"fmt"
 	"net"
 	"testing"
 	"time"
@@ -209,6 +210,7 @@ errorloop:
 				if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
 					continue
 				}
+				fmt.Printf("%#v\n", err)
 				t.Errorf("Received error: %s", err)
 				return
 			}
